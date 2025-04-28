@@ -18,7 +18,6 @@ import com.example.movietracker.domain.model.Movie
 import com.example.movietracker.presentation.common.adapter.MovieAdapter
 import com.example.movietracker.presentation.common.model.UiState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 /**
@@ -71,7 +70,6 @@ class HomeFragment : androidx.fragment.app.Fragment() {
             }
         }
 
-        // Observe one-time events
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.event.collect { event ->
@@ -127,7 +125,6 @@ class HomeFragment : androidx.fragment.app.Fragment() {
                 binding.tvError.text = state.message
             }
             is UiState.Loading, is UiState.Idle -> {
-                // Do nothing special
             }
         }
     }

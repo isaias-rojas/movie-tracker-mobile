@@ -54,7 +54,6 @@ class DetailViewModel @Inject constructor(
         data class ShowError(val message: String) : DetailEvent()
     }
 
-    // Get the movie ID from saved state
     private val movieId: Int = checkNotNull(savedStateHandle["movieId"])
 
     override fun initialState(): DetailState = DetailState()

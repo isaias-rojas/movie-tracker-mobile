@@ -69,8 +69,11 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
+
     implementation(libs.glide)
-    ksp(libs.glide.compiler)
+    implementation(libs.glide.okhttp3.integration)
+    kapt(libs.glide.compiler)
+
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.fragment)

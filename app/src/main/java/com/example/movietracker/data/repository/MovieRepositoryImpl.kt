@@ -36,16 +36,37 @@ class MovieRepositoryImpl @Inject constructor(
     }
 
     override suspend fun searchMovies(query: String): List<Movie> {
-        val remoteMovies = remoteDataSource.searchMovies(query)
+        try {
+            // 1. Get movies from API
+            val remoteMovies = remoteDataSource.searchMovies(query)
 
-        localDataSource.saveMovies(mapper.dtoListToEntityList(remoteMovies))
+            // 2. Get existing movies from local DB to preserve their states
+            val localMovies = localDataSource.getAllMovies().first()
 
-        return mapper.entityListToDomainList(
-            localDataSource.getAllMovies().map { entities ->
-                val remoteIds = remoteMovies.map { it.id }.toSet()
-                entities.filter { it.id in remoteIds }
-            }.first()
-        )
+            // 3. Create a map of existing movie states (favorite/watched)
+            val stateMap = localMovies.associate {
+                it.id to Pair(it.isFavorite, it.isWatched)
+            }
+
+            // 4. Preserve states when converting to entities
+            val entitiesToSave = remoteMovies.map { dto ->
+                val entity = mapper.dtoToEntity(dto)
+                val (isFavorite, isWatched) = stateMap[entity.id] ?: (false to false)
+                entity.copy(isFavorite = isFavorite, isWatched = isWatched)
+            }
+
+            // 5. Save to local DB with preserved states
+            localDataSource.saveMovies(entitiesToSave)
+
+            // 6. Return results with correct states
+            return mapper.entityListToDomainList(
+                localDataSource.getAllMovies().first().filter {
+                        entity -> remoteMovies.any { it.id == entity.id }
+                }
+            )
+        } catch (e: Exception) {
+            throw e
+        }
     }
 
     override suspend fun refreshMovies(): Boolean {

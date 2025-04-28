@@ -41,12 +41,10 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
     }
 
     override fun observeViewModel() {
-        // Observe UI state
         collectFlow(viewModel.state) { state ->
             handleFavoritesState(state.favoritesState)
         }
 
-        // Observe one-time events
         collectFlow(viewModel.event) { event ->
             handleEvent(event)
         }

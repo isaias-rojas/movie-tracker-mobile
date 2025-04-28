@@ -11,11 +11,16 @@ import okhttp3.OkHttpClient
 import java.io.InputStream
 import java.util.concurrent.TimeUnit
 
+/**
+ * Custom Glide module that configures OkHttp with proper headers for image loading.
+ *
+ * This helps bypass restrictions from image sources that block direct loading without
+ * proper user agent headers.
+ */
 @GlideModule
 class MovieTrackerGlideModule : AppGlideModule() {
 
     override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
-        // Create an OkHttp client with a User-Agent header
         val okHttpClient = OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
@@ -28,7 +33,6 @@ class MovieTrackerGlideModule : AppGlideModule() {
             }
             .build()
 
-        // Register the client for loading images via HTTP
         registry.replace(
             GlideUrl::class.java,
             InputStream::class.java,

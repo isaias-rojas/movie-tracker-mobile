@@ -41,12 +41,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     }
 
     override fun observeViewModel() {
-        // Observe UI state
         collectFlow(viewModel.state) { state ->
             handleMovieState(state.movieState)
         }
 
-        // Observe one-time events
         collectFlow(viewModel.event) { event ->
             handleEvent(event)
         }
@@ -90,10 +88,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         binding.collapsingToolbar.title = movie.title
         binding.tvYear.text = getString(R.string.release_year, movie.year)
 
-        // Load movie poster
         ImageBindingUtils.loadImage(binding.ivMoviePoster, movie.imageUrl)
 
-        // Update button states
         updateButtonStates(movie)
     }
 
@@ -111,7 +107,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             getString(R.string.mark_as_favorite)
         }
 
-        // Update watched button
         val watchedIcon = if (movie.isWatched) {
             R.drawable.ic_watched
         } else {

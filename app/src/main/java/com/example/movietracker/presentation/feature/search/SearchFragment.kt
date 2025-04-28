@@ -17,7 +17,6 @@ import com.example.movietracker.domain.model.Movie
 import com.example.movietracker.presentation.common.adapter.MovieAdapter
 import com.example.movietracker.presentation.common.base.BaseFragment
 import com.example.movietracker.presentation.common.model.UiState
-import com.example.movietracker.presentation.feature.home.HomeFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -45,12 +44,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     }
 
     override fun observeViewModel() {
-        // Observe UI state
         collectFlow(viewModel.state) { state ->
             handleSearchResultsState(state.searchResults)
         }
 
-        // Observe one-time events
         collectFlow(viewModel.event) { event ->
             handleEvent(event)
         }
@@ -71,12 +68,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     }
 
     private fun setupSearchInput() {
-        // Update search query as user types
         binding.etSearch.doAfterTextChanged { text ->
             viewModel.updateSearchQuery(text.toString())
         }
 
-        // Perform search when user presses search on keyboard
         binding.etSearch.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 viewModel.performSearch()
@@ -86,12 +81,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             }
         }
 
-        // Clear button for search
         binding.etSearch.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                // Add clear button if needed
             } else {
-                // Clear search if focus lost and text is empty
                 if (binding.etSearch.text.isNullOrEmpty()) {
                     viewModel.clearSearch()
                 }
@@ -101,7 +93,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
     override fun onResume() {
         super.onResume()
-        // Clear previous results when returning to the fragment
         if (binding.etSearch.text.isNullOrEmpty()) {
             viewModel.clearSearch()
         }

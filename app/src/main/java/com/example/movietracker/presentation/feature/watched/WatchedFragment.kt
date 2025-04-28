@@ -41,12 +41,10 @@ class WatchedFragment : BaseFragment<FragmentWatchedBinding>() {
     }
 
     override fun observeViewModel() {
-        // Observe UI state
         collectFlow(viewModel.state) { state ->
             handleWatchedState(state.watchedState)
         }
 
-        // Observe one-time events
         collectFlow(viewModel.event) { event ->
             handleEvent(event)
         }

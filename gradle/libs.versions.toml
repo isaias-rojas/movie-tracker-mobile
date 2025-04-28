@@ -9,6 +9,7 @@ lifecycle-viewmodel-ktx = "2.8.7"
 lifecycle-livedata-ktx = "2.8.7"
 navigation-fragment-ktx = "2.8.9"
 navigation-ui-ktx = "2.8.9"
+okhttp3-integration = "4.16.0"
 room-runtime = "2.7.1"
 room-ktx = "2.7.1"
 room-compiler = "2.7.1"
@@ -33,6 +34,7 @@ swiperefreshlayout = "1.1.0"
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "android-core-ktx" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
+glide-okhttp3-integration = { module = "com.github.bumptech.glide:okhttp3-integration", version.ref = "okhttp3-integration" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity-ktx" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }

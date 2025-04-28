@@ -22,14 +22,11 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Initialize ViewBinding
         binding = inflateViewBinding()
         setContentView(binding.root)
 
-        // Setup UI
         setupUI()
 
-        // Observe ViewModel
         observeViewModel()
     }
 

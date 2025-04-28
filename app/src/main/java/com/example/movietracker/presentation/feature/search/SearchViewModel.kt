@@ -66,17 +66,14 @@ class SearchViewModel @Inject constructor(
     fun updateSearchQuery(query: String) {
         setState { it.copy(searchQuery = query) }
 
-        // Cancel previous search job if exists
         searchJob?.cancel()
 
         if (query.length >= 2) {
-            // Start a new search job with debounce
             searchJob = viewModelScope.launch {
-                delay(300) // Debounce for 300ms
+                delay(300)
                 search(query)
             }
         } else if (query.isEmpty()) {
-            // Clear results when query is empty
             setState { it.copy(searchResults = UiState.Idle) }
         }
     }
