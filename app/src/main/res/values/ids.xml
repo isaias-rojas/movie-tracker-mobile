@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Navigation action IDs -->
+    <item name="action_homeFragment_to_detailFragment" type="id" />
+    <item name="action_searchFragment_to_detailFragment" type="id" />
+    <item name="action_favoritesFragment_to_detailFragment" type="id" />
+    <item name="action_watchedFragment_to_detailFragment" type="id" />
+</resources>
